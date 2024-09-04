@@ -1,7 +1,13 @@
 // File: utils.cpp
 #include "utils.h"
 #include "lodepng.h"
+
+#ifndef BC7ENC_USE_MINIZ
+#define BC7ENC_USE_MINIZ 1
+#endif
+#if BC7ENC_USE_MINIZ
 #include "miniz.h"
+#endif
 
 namespace utils 
 {
@@ -886,6 +892,7 @@ bool load_astc_file(const char* pFilename, block16_vec& blocks, uint32_t& width,
 	return true;
 }
 
+#if BC7ENC_USE_MINIZ
 uint32_t get_deflate_size(const void* pData, size_t data_size)
 {
 	size_t comp_size = 0;
@@ -897,5 +904,6 @@ uint32_t get_deflate_size(const void* pData, size_t data_size)
 
 	return (uint32_t)comp_size;
 }
+#endif
 
 } // namespace utils
